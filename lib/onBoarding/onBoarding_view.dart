@@ -60,6 +60,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
         options: CarouselOptions(
             // enlargeCenterPage: true,
             // aspectRatio: 2.0,
+            enableInfiniteScroll: false,
             height: 400,
             viewportFraction: 1.0,
             onPageChanged: (index, reason) {
