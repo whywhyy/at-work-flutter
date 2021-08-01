@@ -1,4 +1,3 @@
-import 'package:app/login/login_controller.dart';
 import 'package:flutter/material.dart';
 import './onBoarding_view.dart';
 

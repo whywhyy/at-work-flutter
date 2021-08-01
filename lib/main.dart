@@ -1,7 +1,7 @@
 
 import 'package:app/login/login_controller.dart';
 import 'package:app/onBoarding/onBoarding_controller.dart';
-import 'package:app/onBoarding/onBoarding_view.dart';
+import 'package:app/register/register_controller.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(CarouselDemo());
@@ -9,7 +9,7 @@ void main() => runApp(CarouselDemo());
 final themeMode = ValueNotifier(2);
 
 // routers
-final mapList = [OnBoardingController.routes, LoginController.routes];
+final mapList = [OnBoardingController.routes, LoginController.routes, RegisterController.routes];
 final Map<String, WidgetBuilder> routers =  mapList.reduce( (map1, map2) => map1..addAll(map2) );
 
 class CarouselDemo extends StatelessWidget {

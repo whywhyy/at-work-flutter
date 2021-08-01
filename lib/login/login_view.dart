@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app/login/login_controller.dart';
+import 'package:app/register/register_controller.dart';
 
 class SelectRegisterOrLogin extends StatelessWidget {
   @override
@@ -77,9 +78,12 @@ class SelectRegisterOrLogin extends StatelessWidget {
 }
 
 class RegisterOrLogin extends StatelessWidget {
+  final TextEditingController _controller = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
           child: Column(
         children: [
@@ -132,28 +136,40 @@ class RegisterOrLogin extends StatelessWidget {
                   80.0,
                 ),
                 child: TextField(
+                  controller: _controller,
                   decoration: InputDecoration(
-                      border: UnderlineInputBorder(), hintText: '이메일'),
+                    border: UnderlineInputBorder(),
+                    hintText: '이메일',
+                    suffixIcon: IconButton(
+                      onPressed: _controller.clear,
+                      icon: Icon(Icons.clear),
+                    ),
+                  ),
                 ),
               )),
             ],
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            Container(
-              padding: const EdgeInsets.only(top: 300),
-              child: MaterialButton(
-                padding: EdgeInsets.all(3),
-                onPressed: () => {},
-                child: new Icon(
-                  Icons.navigate_next,
-                  color: Colors.white,
-                  size: 45.0,
-                ),
-                shape: new CircleBorder(),
-                color: Colors.blue,
-              ),
-            )
-          ]),
+          Expanded(
+              child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    padding: EdgeInsets.all(15.0),
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        /* skip : todo check email certification
+                           goto : register
+                        */
+                        Navigator.pushNamed(
+                            context, RegisterController.setName);
+                      },
+                      child: new Icon(
+                        Icons.navigate_next,
+                        color: Colors.white,
+                        size: 40.0,
+                      ),
+                      backgroundColor: Colors.blue,
+                    ),
+                  ))),
         ],
       )),
     );

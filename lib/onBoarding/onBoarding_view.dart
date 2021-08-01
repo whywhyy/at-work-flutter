@@ -49,94 +49,81 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        Container(
-          height: 150,
-          width: 0,
-        ),
-        CarouselSlider(
-          items: imageSliders,
-          carouselController: _controller,
-          options: CarouselOptions(
-              // enlargeCenterPage: true,
-              // aspectRatio: 2.0,
-              height: 400,
-              viewportFraction: 1.0,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                });
-              }),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: imgList.asMap().entries.map((entry) {
-            return GestureDetector(
-              onTap: () => _controller.animateToPage(entry.key),
+        body: Column(children: [
+      Container(
+        height: 50,
+        width: 0,
+      ),
+      CarouselSlider(
+        items: imageSliders,
+        carouselController: _controller,
+        options: CarouselOptions(
+            // enlargeCenterPage: true,
+            // aspectRatio: 2.0,
+            height: 400,
+            viewportFraction: 1.0,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _current = index;
+              });
+            }),
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: imgList.asMap().entries.map((entry) {
+          return GestureDetector(
+            onTap: () => _controller.animateToPage(entry.key),
+            child: Container(
+              width: 8.0,
+              height: 6.0,
+              margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: (Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black)
+                      .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+            ),
+          );
+        }).toList(),
+      ),
+      Stack(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              padding: EdgeInsets.all(40.0),
+              child: new GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, LoginController.selectRegisterOrLogin);
+                  },
+                  child: Text("건너 뛰기",
+                      style: TextStyle(color: Colors.white.withOpacity(0.6)),
+                  )),
+            ),
+          ),
+          Align(
+              alignment: Alignment.bottomRight,
               child: Container(
-                width: 8.0,
-                height: 6.0,
-                margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: (Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black)
-                        .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-              ),
-            );
-          }).toList(),
-        ),
-        Container(
-          height: 85,
-          width: 0,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              child: (_current == imgList.length - 1)
-                  ? Spacer()
-                  : Flexible(
-                      child: MaterialButton(
-                        padding: EdgeInsets.all(3),
-                        onPressed: () => Navigator.pushReplacementNamed(context, LoginController.selectRegisterOrLogin),
-                        child: Text("건너뛰기"),
-                      ),
-                    ),
-            ),
-            Container(
-              child: (_current == imgList.length - 1)
-                  ? Flexible(
-                      child: MaterialButton(
-                        padding: EdgeInsets.all(3),
-                        onPressed: () => Navigator.pushReplacementNamed(context, LoginController.selectRegisterOrLogin),
-                        child: new Icon(
-                          Icons.navigate_next,
-                          color: Colors.white,
-                          size: 45.0,
-                        ),
-                        shape: new CircleBorder(),
-                        color: Colors.blue,
-                      ),
-                    )
-                  : Flexible(
-                      child: MaterialButton(
-                        padding: EdgeInsets.all(3),
-                        onPressed: () => _controller.nextPage(),
-                        child: new Icon(
-                          Icons.navigate_next,
-                          color: Colors.white,
-                          size: 45.0,
-                        ),
-                        shape: new CircleBorder(),
-                        color: Colors.blue,
-                      ),
-                    ),
-            ),
-          ],
-        ),
-      ]),
-    );
+                padding: EdgeInsets.all(15.0),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    _current == imgList.length - 1
+                        ? Navigator.pushNamed(
+                            context, LoginController.selectRegisterOrLogin)
+                        : _controller.nextPage();
+                  },
+                  child: new Icon(
+                    Icons.navigate_next,
+                    color: Colors.white,
+                    size: 40.0,
+                  ),
+                  backgroundColor: Colors.blue,
+                ),
+              )),
+        ],
+      )
+    ]));
   }
 }
